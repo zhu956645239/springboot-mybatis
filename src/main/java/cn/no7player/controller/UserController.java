@@ -8,9 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-/**
- * Created by zl on 2015/8/27.
- */
+
 @Controller
 public class UserController {
 
@@ -24,8 +22,8 @@ public class UserController {
     public User getUserInfo() {
         User user = userService.getUserInfo();
         if(user!=null){
-            System.out.println("user.getName():"+user.getName());
-            logger.info("user.getAge():"+user.getAge());
+            System.out.println("user.getName():"+user.getSn());
+            logger.info("user.getAge():"+user.getCity());
         }
         return user;
     }

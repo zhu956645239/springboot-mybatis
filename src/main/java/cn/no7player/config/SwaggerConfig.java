@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * Created by zl on 2015/8/27.
- */
 @Configuration
 @EnableSwagger
 @EnableAutoConfiguration

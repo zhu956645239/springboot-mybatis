@@ -1,34 +1,51 @@
 package cn.no7player.model;
 
-/**
- * Created by zl on 2015/8/27.
- */
+import java.util.Date;
+
 public class User {
-    private String name;
-    private Integer age;
-    private String password;
+    private Long id;
+    private String sn;
+    private String province;
+    private String city;
+    private Date createDate;
 
-    public String getName() {
-        return name;
+    public Long getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getSn() {
+        return sn;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setSn(String sn) {
+        this.sn = sn;
     }
 
-    public String getPassword() {
-        return password;
+    public String getProvince() {
+        return province;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 }
