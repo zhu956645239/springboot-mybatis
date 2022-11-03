@@ -1,10 +1,10 @@
 package cn.gy.controller;
 
+import cn.gy.model.User;
+
+import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class RandomCity {
@@ -87,15 +87,98 @@ public class RandomCity {
         return dates;
     }
 
+    public static void readCSV(String readpath, List<String> list)
+    {
+        File inFile = new File(readpath);
+        StringBuilder stringBuilder = new StringBuilder();
+        try
+        {
+            BufferedReader reader = new BufferedReader(new FileReader(inFile));
+            boolean sign = false;       //用来跳过第一行的名称
+            while(reader.ready())
+            {
+                String line = reader.readLine();
+                StringTokenizer st = new StringTokenizer(line, ",");
+                String sn,item,time;
+                int rank;
+
+                if (st.hasMoreTokens() && sign)
+                {
+                    st.nextToken().trim();
+                    sn = st.nextToken().trim();
+                    item = st.nextToken().trim();
+                    rank = Integer.parseInt(st.nextToken().trim().replace("\"", ""));
+                    time = st.nextToken().trim();
+                    String s = stringBuilder
+                            .append(sn).append(",")
+                            .append(item).append(",")
+                            .append(rank * new Random().nextInt(10000)).append(",")
+                            .append(time).append(",")
+                            .append(new Random().nextInt(1000))
+                            .toString().replace("\"", "");
+                    list.add(s);
+                    int size = list.size();
+                    stringBuilder.setLength(0);
+                    System.out.println(size);
+                    if (size >= 1000000) {
+                        writeFile(list);
+                        list.clear();
+                    }
+                }
+                else
+                {
+                    sign = true;
+                }
+            }
+            if (list.size() != 0) {
+                System.out.println("剩余:"+list.size());
+                writeFile(list);
+                list.clear();
+            }
+            reader.close();
+
+        }
+        catch (FileNotFoundException e)
+        {
+
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeFile(List<String>  strings) {
+        //将每次计算的结果写入到文件最后一行，而不是覆盖
+        File file = new File("D:\\BaiduNetdiskDownload\\dataset\\result.txt");
+        try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true)))){
+            for (String line : strings) {
+                if (line == null|| line.equals("")) {
+                    break;
+                }
+                bw.newLine();
+                bw.write(line);
+                bw.flush();
+            }
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public static void main(String[] args) {
-        for (int i = 0; i < 10000; i++) {
+      /*  for (int i = 0; i < 10000; i++) {
 
             String[] randomCity = getRandomCity();
             System.out.println(randomCity[0] +"-" + randomCity[1]);
         }
+*/
+        List<String> strings = new ArrayList<>();
 
+        readCSV("D:\\BaiduNetdiskDownload\\dataset\\豆瓣电影数据集\\ratings.csv", strings);
 
     }
 }
