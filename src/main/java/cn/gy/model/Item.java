@@ -1,16 +1,17 @@
-package cn.no7player.model;
+package cn.gy.model;
 
 import java.util.Date;
 
 public class Item {
     private Long id;
     private String name;
-    private String titile;
+    private String title;
     private String keywords;
     private String focus;
     private Integer length;
     private String contentModel;
     private String area;
+    private String desc;
     private String language;
     private String quality;
     private String is_3d;
@@ -34,12 +35,22 @@ public class Item {
         this.name = name;
     }
 
-    public String getTitile() {
-        return titile;
+
+
+    public String getDesc() {
+        return desc;
     }
 
-    public void setTitile(String titile) {
-        this.titile = titile;
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getKeywords() {

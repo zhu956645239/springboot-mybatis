@@ -56,6 +56,16 @@ public class UserController {
         return 0;
     }
 
+
+
+    @RequestMapping("/createAction")
+    @ResponseBody
+    public int createAction() {
+        readCSV3("E:\\BaiduNetdiskDownload\\豆瓣电影数据集\\movies.csv");
+        System.out.println("添加完成");
+        return 0;
+    }
+
     public static String StringFilter(String str)  {
         String regEx="[^\\u4E00-\\u9FA5]";
         Pattern p = Pattern.compile(regEx);
@@ -64,6 +74,87 @@ public class UserController {
     }
 
 
+    public static void readCSV3(String readpath)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        List<Date> dates = null;
+        try {
+            dates = randomDate("1950-6-21 00:00:00", "2022-12-01 23:59:59", 900000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //dates.forEach(t -> System.out.println(sdf.format(t)));
+
+        File inFile = new File(readpath);
+        try
+        {
+            BufferedReader reader = new BufferedReader(new FileReader(inFile));
+            boolean sign = false;       //用来跳过第一行的名称
+            while(reader.ready())
+            {
+                String line = reader.readLine();
+                StringTokenizer st = new StringTokenizer(line, ",");
+                String sn,item,duration,time,area,contentModel, desc;
+
+                if (st.hasMoreTokens() && sign)
+                {
+                    st.nextToken().trim().replace("\"", "");
+                    sn = st.nextToken().trim().replace("\"", "");
+                    item = st.nextToken().trim().replace("\"", "");
+                    duration = st.nextToken().trim().replace("\"", "");
+                    time = st.nextToken().trim().replace("\"", "");
+
+                }
+                else
+                {
+                    sign = true;
+                }
+            }
+            reader.close();
+
+        }
+        catch (FileNotFoundException e)
+        {
+
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    public void writeFile(String[] arrs, String path) throws IOException {
+/*        String[] arrs={
+                "zhangsan,23,福建",
+                "lisi,30,上海",
+                "wangwu,43,北京",
+                "laolin,21,重庆",
+                "ximenqing,67,贵州"
+
+                "E:/phsftp/evdokey/evdokey_201103221556.txt"
+        };*/
+        //写入中文字符时解决中文乱码问题
+        FileOutputStream fos=new FileOutputStream(new File(path));
+        OutputStreamWriter osw=new OutputStreamWriter(fos, "UTF-8");
+        BufferedWriter  bw=new BufferedWriter(osw);
+        //简写如下：
+        //BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+        //        new FileOutputStream(new File("E:/phsftp/evdokey/evdokey_201103221556.txt")), "UTF-8"));
+
+        for(String arr:arrs){
+            bw.write(arr+"\t\n");
+        }
+
+        //注意关闭的先后顺序，先打开的后关闭，后打开的先关闭
+        bw.close();
+        osw.close();
+        fos.close();
+    }
 
 
     public static void readCSV2(String readpath, List<Item> list)
