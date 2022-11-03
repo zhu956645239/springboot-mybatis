@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gy.mapper.ItemMapper">
+ 
+  <select id="findItemInfo" resultType="cn.gy.model.Item">
+    select name from item_info;
+  </select>
+
+  <insert id="insertItemInfoList" parameterType="List">
+    insert into item_info (id,`name`,title,keywords,focus,`desc`,`length`,content_model,area,`language`,
+                           quality,is_3d,create_date,air_date,last_mod)
+    <foreach collection="list" open="values" item="item" separator=",">
+      (
+      #{item.id},
+      #{item.name},
+      #{item.title},
+      #{item.keywords},
+      #{item.focus},
+      #{item.desc},
+      #{item.length},
+      #{item.contentModel},
+      #{item.area},
+      #{item.language},
+      #{item.quality},
+      #{item.is_3d},
+      #{item.createDate},
+      #{item.airDate},
+      #{item.lastMod}
+      )
+    </foreach>
+  </insert>
+
+
+
+</mapper>

@@ -1,4 +1,4 @@
-package cn.no7player.model;
+package cn.gy.model;
 
 import java.util.Date;
 

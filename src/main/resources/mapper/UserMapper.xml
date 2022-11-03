@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gy.mapper.UserMapper">
+ 
+  <select id="findUserInfo" resultType="cn.gy.model.User">
+    select sn,province,city from user_info;
+  </select>
+
+
+  <insert id="insertUserInfoList" parameterType="List">
+    insert into user_info (sn,create_date,province,city)
+    <foreach collection="list" open="values" item="item" separator=",">
+      (
+      #{item.sn},
+      #{item.createDate},
+      #{item.province},
+      #{item.city}
+      )
+    </foreach>
+  </insert>
+
+</mapper>
